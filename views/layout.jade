@@ -1,7 +1,17 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
+	body
+	nav.navbar.navbar-default
+		.container-fluid
+			.navbar-header
+				a.navbar-brand(href="/") Colenso
+			ul.nav.navbar-nav
+				li
+					a(href="search") Search
+				li 
+					a(href="#") Help
+	block content
