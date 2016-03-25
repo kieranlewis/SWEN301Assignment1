@@ -3,10 +3,10 @@ extends layout
 block content
 	h1= title
 
-	form.form
+	form.form(action='/results', method='get')
 		.form-group
-			label(for='query') Enter Query:
-			input.form-control(type='query')
+			label(for='query') Enter Query (do not need XQUERY at start of search):
+			input.form-control(type='query', name='searchString')
 		button.btn.btn-default(type='submit') Submit
 
 
