@@ -1,0 +1,13 @@
+extends layout
+
+block content
+	h1= title
+
+	table.table
+		thead
+			th File Name
+		tbody
+			each file in files
+				tr
+					td
+						a(href='viewfile?file=/' + file)=file

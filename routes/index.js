@@ -15,13 +15,57 @@ router.get('/', function(req, res, next) {
 
 /* GET search page. */
 router.get('/search', function(req, res) {
-	client.execute(namespace + 'for $n in (' + req.query.searchString + ')\n ' + 'return db:path($n)',
+	client.execute(namespace + "for $n in (" + req.query.searchString + ")\n " + "return db:path($n)",
 	function(error, result) {
-		if(!error) {
+		if(error) {
+			res.render('search', { title: 'Search' });
+		} else {
 			var list = result.result.split('\n');
 			res.render('search', { title: 'Search', files: list });
+		}
+	}); 
+});
+
+/* View the file in a readable manner */
+router.get('/viewfile', function(req, res) {
+	client.execute("XQUERY doc('Colenso" + req.query.file + "')",
+	function(error, result) {
+		if(!error) {
+			res.render('viewfile', { title: 'View File', file: req.query.file, content: result.result });
+		} 
+	});
+});
+
+/* Download raw TEI */
+router.get('/download', function(req,res) {
+	client.execute(namespace + "for $n in (doc('Colenso/" + req.query.file + "'))\n" + "return db:path($n)",
+	function(error, result) {
+		if(!error) {
+			res.download('data/' + result.result);
+		}
+	});	
+});
+
+/* Browse basex files . */
+router.get('/browse', function(req, res) {
+	client.execute("List Colenso",
+	function(error, result) {
+		if(error) {
+			res.render('browse', { title: 'Browse Files' });
 		} else {
-			res.render('search', { title: 'Search' });
+			var list = result.result.split('\n');
+			//formatting the data
+			var line = [];
+			var xmlfiles = []
+			list.splice(0, 2);
+
+			for(var i = 0; i < list.length; i++) {
+				line = list[i].split(' ');
+				console.log(line[0]);
+				xmlfiles.push(line[0]);
+			}
+
+			res.render('browse', { title: 'Browse Files', files: xmlfiles });
 		}
 	}); 
 });
