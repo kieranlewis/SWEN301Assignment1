@@ -13,15 +13,28 @@ router.get('/', function(req, res, next) {
   	res.render('index', { title: 'Colenso' });
 });
 
-/* GET search page. */
+/* Search for XQUERY results */
 router.get('/search', function(req, res) {
 	client.execute(namespace + "for $n in (" + req.query.searchString + ")\n " + "return db:path($n)",
 	function(error, result) {
 		if(error) {
-			res.render('search', { title: 'Search' });
+			res.render('search', { title: 'Search', files: [""] });
 		} else {
 			var list = result.result.split('\n');
 			res.render('search', { title: 'Search', files: list });
+		}
+	}); 
+});
+
+/* Search for logical operation result */
+router.get('/logicalsearch', function(req, res) {
+  	client.execute(namespace + "for $n in //p[. contains text " + req.query.searchString + "] return db:path($n)",
+	function(error, result) {
+		if(error) {
+			res.render('logicalsearch', { title: 'Search', files: [""] });
+		} else {
+			var list = result.result.split('\n');
+			res.render('logicalsearch', { title: 'Search', files: list });
 		}
 	}); 
 });

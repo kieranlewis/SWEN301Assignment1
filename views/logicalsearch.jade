@@ -3,9 +3,9 @@ extends layout
 block content
 	h1= title
 
-	form.form(action='/search', method='get')
+	form.form(action='/logicalsearch', method='get')
 		.form-group
-			label(for='query') Enter XQUERY (do not need XQUERY at start of search):
+			label(for='query') Enter Logical Search (Logical operations (ftor, ftand, ftnot, .?, .*, .+)):
 			input.form-control(type='query', name='searchString')
 
 		button.btn.btn-default(type='submit') Submit
@@ -20,9 +20,3 @@ block content
 				tr
 					td
 						a(href='viewfile?file=/' + file)=file
-							
-
-	
-
-
-
