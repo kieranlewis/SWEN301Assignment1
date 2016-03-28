@@ -3,11 +3,24 @@ extends layout
 block content
 	h1= title
 
-	form.form(action='/results', method='get')
+	form.form(action='/search', method='get')
 		.form-group
 			label(for='query') Enter Query (do not need XQUERY at start of search):
 			input.form-control(type='query', name='searchString')
 		button.btn.btn-default(type='submit') Submit
+
+	h1 List of Documents
+
+	table.table
+		thead
+			th File Name
+		tbody
+			each file in files
+				tr
+					td
+						a(href='#')= file
+
+	
 
 
 
