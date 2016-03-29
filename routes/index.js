@@ -54,7 +54,7 @@ router.get('/download', function(req,res) {
 	client.execute(namespace + "for $n in (doc('Colenso/" + req.query.file + "'))\n" + "return db:path($n)",
 	function(error, result) {
 		if(!error) {
-			res.download('data/' + result.result);
+			res.download('../Colenso/' + result.result);
 		}
 	});	
 });
