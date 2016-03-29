@@ -21,7 +21,19 @@ router.get('/search', function(req, res) {
 			res.render('search', { title: 'Search', files: [""] });
 		} else {
 			var list = result.result.split('\n');
-			res.render('search', { title: 'Search', files: list });
+
+			var temp = {};
+
+			for(var i = 0; i < list.length; i++) {
+				temp[list[i]] = true;
+			}
+
+			var noDuplicatesList = [];
+			for(var k in temp) {
+				noDuplicatesList.push(k);
+			}
+
+			res.render('search', { title: 'Search', files: noDuplicatesList });
 		}
 	}); 
 });
@@ -34,7 +46,18 @@ router.get('/logicalsearch', function(req, res) {
 			res.render('logicalsearch', { title: 'Search', files: [""] });
 		} else {
 			var list = result.result.split('\n');
-			res.render('logicalsearch', { title: 'Search', files: list });
+			var temp = {};
+
+			for(var i = 0; i < list.length; i++) {
+				temp[list[i]] = true;
+			}
+
+			var noDuplicatesList = [];
+			for(var k in temp) {
+				noDuplicatesList.push(k);
+			}
+
+			res.render('logicalsearch', { title: 'Search', files: noDuplicatesList });
 		}
 	}); 
 });
@@ -74,7 +97,7 @@ router.get('/browse', function(req, res) {
 
 			for(var i = 0; i < list.length; i++) {
 				line = list[i].split(' ');
-				console.log(line[0]);
+
 				xmlfiles.push(line[0]);
 			}
 
