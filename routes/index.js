@@ -18,7 +18,7 @@ router.get('/search', function(req, res) {
 	client.execute(namespace + "for $n in (" + req.query.searchString + ")\n " + "return db:path($n)",
 	function(error, result) {
 		if(error) {
-			res.render('search', { title: 'Search', files: [""] });
+			res.render('search', { title: 'Search', files: [], length: null });
 		} else {
 			var list = result.result.split('\n');
 
@@ -43,7 +43,7 @@ router.get('/logicalsearch', function(req, res) {
   	client.execute(namespace + "for $n in //.[. contains text " + req.query.searchString + "] return db:path($n)",
 	function(error, result) {
 		if(error) {
-			res.render('logicalsearch', { title: 'Search', files: [""] });
+			res.render('logicalsearch', { title: 'Search', files: []});
 		} else {
 			var list = result.result.split('\n');
 			var temp = {};
@@ -57,7 +57,7 @@ router.get('/logicalsearch', function(req, res) {
 				noDuplicatesList.push(k);
 			}
 
-			res.render('logicalsearch', { title: 'Search', files: noDuplicatesList });
+			res.render('logicalsearch', { title: 'Search', files: noDuplicatesList});
 		}
 	}); 
 });
@@ -105,6 +105,10 @@ router.get('/browse', function(req, res) {
 			res.render('browse', { title: 'Browse Files', files: xmlfiles });
 		}
 	}); 
+});
+
+router.get('/help', function(req, res) {
+  	res.render('help', { title: 'Help' });
 });
 
 module.exports = router;

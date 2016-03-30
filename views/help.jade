@@ -1,0 +1,23 @@
+extends layout
+
+block content
+	h1= title
+
+	h4 XQUERY
+	p. 
+		No XQUERY needed at start of query or tei namespace
+		#[br]
+		eg 1. by document name: doc('Colenso/McLean/private_letters/PrLMcL-0024.xml')
+		#[br]
+		eg 2. by element type: (//p)[1]
+
+	#[br]	
+	h4 Logical Operations
+	p.
+		Looks throughout the document for any example of the search
+		#[br]
+		Single Quotes needed around words
+		#[br]
+		Operators: or - ftor, and - ftand, not - ftnot
+		#[br]
+		eg 1. 'test'ftor'another test' 
