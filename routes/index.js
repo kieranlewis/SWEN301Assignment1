@@ -10,7 +10,7 @@ var namespace = "XQUERY declare default element namespace 'http://www.tei-c.org/
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  	res.render('index', { title: 'Colenso' });
+  	res.render('index', { title: 'Colenso Database' });
 });
 
 /* Search for XQUERY results */
@@ -40,7 +40,7 @@ router.get('/search', function(req, res) {
 
 /* Search for logical operation result */
 router.get('/logicalsearch', function(req, res) {
-  	client.execute(namespace + "for $n in //p[. contains text " + req.query.searchString + "] return db:path($n)",
+  	client.execute(namespace + "for $n in //.[. contains text " + req.query.searchString + "] return db:path($n)",
 	function(error, result) {
 		if(error) {
 			res.render('logicalsearch', { title: 'Search', files: [""] });
@@ -94,6 +94,7 @@ router.get('/browse', function(req, res) {
 			var line = [];
 			var xmlfiles = []
 			list.splice(0, 2);
+			list.splice(list.length-2, 2)
 
 			for(var i = 0; i < list.length; i++) {
 				line = list[i].split(' ');
